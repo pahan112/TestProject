@@ -66,6 +66,5 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
     @OnClick(R.id.bt_start)
     void clickStart(){
-
     }
 }
