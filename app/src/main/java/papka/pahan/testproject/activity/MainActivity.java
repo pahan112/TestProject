@@ -3,8 +3,6 @@ package papka.pahan.testproject.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ListFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -68,9 +66,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
     @OnClick(R.id.bt_start)
     void clickStart(){
-        ListFragment listFragment = new ListFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container,listFragment);
-        fragmentTransaction.commit();
+
     }
 }
