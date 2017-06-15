@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "100225384328",
+    "firebase_url": "https://acc-sobakar.firebaseio.com",
+    "project_id": "acc-sobakar",
+    "storage_bucket": "acc-sobakar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100225384328:android:e5678b97f8e324fd",
+        "android_client_info": {
+          "package_name": "papka.pahan.testproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "100225384328-1fh30c8gsq08d2epef72af0seha275cg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "papka.pahan.testproject",
+            "certificate_hash": "2c2dc5b3abfbc1d59de49e4e66e230ff29c155bf"
+          }
+        },
+        {
+          "client_id": "100225384328-rua02lg0bc33iu3bp99ifgl3ltcobn7f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-zUGDpHQnKyPWDpDlGdg-rol7xyzyrKY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "100225384328-rua02lg0bc33iu3bp99ifgl3ltcobn7f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
