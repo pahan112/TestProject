@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="papka.pahan.56dptestproject.activity.LoginActivity">
+    tools:context="papka.pahan.testproject.activity.LoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_tool_bar"
+        android:layout_height="@dimen/height_toolbar"
         android:background="@color/blue"
         android:padding="@dimen/main_padding">
 

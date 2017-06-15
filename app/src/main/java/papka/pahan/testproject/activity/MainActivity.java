@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 if (status.isSuccess()) {
                     goLoginScreen();
                 } else {
-                    Toast.makeText(getApplicationContext(), R.string.eror_log_out, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.error_log_out, Toast.LENGTH_LONG).show();
                 }
             }
         });

@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         if (result.isSuccess()) {
             fireBaseAuthWitchGoogle(result.getSignInAccount());
         } else {
-            Toast.makeText(this, R.string.eror_log_in, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.error_log_in, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), R.string.eror_connect, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.error_connect, Toast.LENGTH_LONG).show();
                 }
             }
         });
