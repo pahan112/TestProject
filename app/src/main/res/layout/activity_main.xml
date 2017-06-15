@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="@dimen/button_margin"
-            android:background="@drawable/button_style"
+            android:background="@drawable/button_effect"
             android:text="@string/start" />
 
         <Button
@@ -50,7 +50,7 @@
             android:layout_weight="1"
             android:layout_marginTop="@dimen/button_margin"
             android:layout_marginEnd="@dimen/button_margin"
-            android:background="@drawable/button_style"
+            android:background="@drawable/button_effect"
             android:text="@string/stop" />
 
         <Button
@@ -60,7 +60,7 @@
             android:layout_weight="1"
             android:layout_marginTop="@dimen/button_margin"
             android:layout_marginEnd="@dimen/button_margin"
-            android:background="@drawable/button_style"
+            android:background="@drawable/button_effect"
             android:text="@string/log_out" />
     </LinearLayout>
 
