@@ -5,11 +5,40 @@
     android:layout_height="match_parent"
     tools:context="papka.pahan.testproject.activity.MainActivity">
 
-    <Button
-        android:id="@+id/bt_log_out"
-        android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
+    <LinearLayout
+        android:id="@+id/ll_panel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/log_out" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/start" />
+
+        <Button
+            android:id="@+id/bt_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/stop" />
+
+        <Button
+            android:id="@+id/bt_log_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/log_out" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_panel">
+    </FrameLayout>
+
 
 </RelativeLayout>

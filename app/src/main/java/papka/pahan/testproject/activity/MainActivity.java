@@ -3,6 +3,8 @@ package papka.pahan.testproject.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ListFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -39,29 +41,36 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         mFirebaseAuth = FirebaseAuth.getInstance();
     }
-    private void goLoginScreen(){
-        Intent intent = new Intent(this,LoginActivity.class);
+
+    private void goLoginScreen() {
+        Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
     @OnClick(R.id.bt_log_out)
-    void clickLogOut(){
+    void clickLogOut() {
         mFirebaseAuth.signOut();
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
             @Override
             public void onResult(@NonNull Status status) {
-                if (status.isSuccess()){
+                if (status.isSuccess()) {
                     goLoginScreen();
-                }else {
-                    Toast.makeText(getApplicationContext()," no fdfdf", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.eror_log_out, Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
-
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+    @OnClick(R.id.bt_start)
+    void clickStart(){
+        ListFragment listFragment = new ListFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.fragment_container,listFragment);
+        fragmentTransaction.commit();
     }
 }

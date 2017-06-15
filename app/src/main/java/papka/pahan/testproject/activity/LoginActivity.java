@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user!=null){
+                if (user != null) {
                     goMainScreen();
                 }
             }
@@ -102,8 +102,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         mFirebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(!task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(), R.string.eror_log_out,Toast.LENGTH_LONG).show();
+                if (!task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), R.string.eror_connect, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -119,7 +119,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     protected void onStop() {
         super.onStop();
-        if(mFirebaseAuthStateListener != null){
+        if (mFirebaseAuthStateListener != null) {
             mFirebaseAuth.removeAuthStateListener(mFirebaseAuthStateListener);
         }
     }
