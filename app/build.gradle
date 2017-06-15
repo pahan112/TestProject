@@ -13,7 +13,7 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\admin\\AndroidStudioProjects\\TestProject\\keystore.jks')
+            storeFile file('keystore.jks')
             storePassword "dedrybul"
             keyAlias "key0"
             keyPassword "dedrybul"

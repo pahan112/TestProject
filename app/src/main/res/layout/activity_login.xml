@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="papka.pahan.testproject.activity.LoginActivity">
+    tools:context="papka.pahan.56dptestproject.activity.LoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/height_tool_bar"
         android:background="@color/blue"
         android:padding="@dimen/main_padding">
 
@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="@string/name_app"
+            android:text="@string/app_name"
             android:textColor="@android:color/white"
             android:textSize="@dimen/title_text_size" />
     </RelativeLayout>
