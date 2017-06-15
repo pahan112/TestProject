@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Test Project</string>
+    <string name="app_name">ACC Sobakar</string>
     <string name="name_app">Test Project</string>
     <string name="eror_log_in">Выберите акаунт</string>
     <string name="eror_log_out">Ошыбка выхода</string>
