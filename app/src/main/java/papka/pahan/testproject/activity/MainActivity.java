@@ -17,7 +17,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import papka.pahan.testproject.R;
-import papka.pahan.testproject.activity.LoginActivity;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         startActivity(intent);
     }
 
-    @OnClick(R.id.bt_logout)
+    @OnClick(R.id.bt_log_out)
     void clickLogOut(){
         mFirebaseAuth.signOut();
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {

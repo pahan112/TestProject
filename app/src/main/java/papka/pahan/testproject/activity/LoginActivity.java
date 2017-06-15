@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     public final static int SING_IN_CODE = 777;
 
     private FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mFirebaseAuthStateListeren;
+    private FirebaseAuth.AuthStateListener mFirebaseAuthStateListener;
 
 
     @Override
@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .build();
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseAuthStateListeren = new FirebaseAuth.AuthStateListener() {
+        mFirebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     protected void onStart() {
         super.onStart();
-        mFirebaseAuth.addAuthStateListener(mFirebaseAuthStateListeren);
+        mFirebaseAuth.addAuthStateListener(mFirebaseAuthStateListener);
     }
 
     @Override
@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         if (result.isSuccess()) {
             fireBaseAuthWitchGoogle(result.getSignInAccount());
         } else {
-            Toast.makeText(this, "Выберите акаунт", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.eror_log_in, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(!task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),"dsadasd asd",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.eror_log_out,Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -119,8 +119,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     protected void onStop() {
         super.onStop();
-        if(mFirebaseAuthStateListeren!= null){
-            mFirebaseAuth.removeAuthStateListener(mFirebaseAuthStateListeren);
+        if(mFirebaseAuthStateListener != null){
+            mFirebaseAuth.removeAuthStateListener(mFirebaseAuthStateListener);
         }
     }
 }
