@@ -31,17 +31,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     final String LOG_TAG = "myLogs";
 
-    Context mContext;
 
     boolean bound = false;
-    ServiceConnection mSConn;
-//    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -55,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         mFirebaseAuth = FirebaseAuth.getInstance();
 
     }
+
 
     private void goLoginScreen() {
         Intent intent = new Intent(this, LoginActivity.class);
@@ -86,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         @Override
         public void onServiceConnected(ComponentName name, IBinder binder) {
             Log.d(LOG_TAG, "onServiceConnected");
+            bound = true;
         }
 
         @Override
@@ -96,21 +96,33 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     };
 
 
-
     @OnClick(R.id.bt_start)
     void clickStart() {
-        Intent intent = new Intent(this, FireBaseService.class);
-        bound = true;
-        bindService(intent, mServerConn, Context.BIND_AUTO_CREATE);
-        startService(intent);
+       // startServ(true);
+        startService(new Intent(this,FireBaseService.class));
     }
 
     @OnClick(R.id.bt_stop)
     void clickStop() {
-        if (!bound) return;
-       stopService(new Intent(this,FireBaseService.class));
-       unbindService(mServerConn);
-        bound = false;
+    //  stopServ(true);
+        stopService(new Intent(this,FireBaseService.class));
     }
 
+    private void startServ(boolean start) {
+       Intent intent = new Intent(this, FireBaseService.class);
+        if (start) {
+            startService(intent);
+            bindService(intent, mServerConn, Context.BIND_AUTO_CREATE);
+        }
+    }
+
+    private void stopServ(boolean stop){
+        if (bound){
+            unbindService(mServerConn);
+            if (stop){
+                stopService(new Intent(this, FireBaseService.class));
+            }
+            bound = false;
+        }
+    }
 }
