@@ -1,9 +1,14 @@
 package papka.pahan.testproject.activity;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -17,17 +22,28 @@ import com.google.firebase.auth.FirebaseAuth;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import papka.pahan.testproject.R;
+import papka.pahan.testproject.service.FireBaseService;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mFirebaseAuth;
 
+    final String LOG_TAG = "myLogs";
+
+    Context mContext;
+
+    boolean bound = false;
+    ServiceConnection mSConn;
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        intent = new Intent(this, FireBaseService.class);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -38,6 +54,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 .build();
 
         mFirebaseAuth = FirebaseAuth.getInstance();
+
+        this.bindService(intent, mServerConn, Context.BIND_AUTO_CREATE);
+        bound = true;
     }
 
     private void goLoginScreen() {
@@ -60,11 +79,40 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         });
     }
+
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+    protected ServiceConnection mServerConn = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder binder) {
+            Log.d(LOG_TAG, "onServiceConnected");
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.d(LOG_TAG, "onServiceDisconnected");
+            bound = false;
+        }
+    };
+
+
+
     @OnClick(R.id.bt_start)
-    void clickStart(){
+    void clickStart() {
+        bound = true;
+        this.bindService(intent, mServerConn, Context.BIND_AUTO_CREATE);
+        this.startService(intent);
     }
+
+    @OnClick(R.id.bt_stop)
+    void clickStop() {
+        if (!bound) return;
+        this.stopService(intent);
+        this.unbindService(mServerConn);
+        bound = false;
+    }
+
 }
