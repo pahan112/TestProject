@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     boolean bound = false;
     ServiceConnection mSConn;
-    Intent intent;
+//    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        intent = new Intent(this, FireBaseService.class);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -55,8 +54,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
-        this.bindService(intent, mServerConn, Context.BIND_AUTO_CREATE);
-        bound = true;
     }
 
     private void goLoginScreen() {
@@ -102,16 +99,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     @OnClick(R.id.bt_start)
     void clickStart() {
+        Intent intent = new Intent(this, FireBaseService.class);
         bound = true;
-        this.bindService(intent, mServerConn, Context.BIND_AUTO_CREATE);
-        this.startService(intent);
+        bindService(intent, mServerConn, Context.BIND_AUTO_CREATE);
+        startService(intent);
     }
 
     @OnClick(R.id.bt_stop)
     void clickStop() {
         if (!bound) return;
-        this.stopService(intent);
-        this.unbindService(mServerConn);
+       stopService(new Intent(this,FireBaseService.class));
+       unbindService(mServerConn);
         bound = false;
     }
 
