@@ -15,11 +15,10 @@ public class DataXYZ {
 
     }
 
-    public DataXYZ(String x, String y, String z, String time) {
+    public DataXYZ(String x, String y, String z) {
         this.x = x;
         this.y = y;
         this.z = z;
-        this.time = time;
     }
 
     public String getX() {
@@ -34,7 +33,4 @@ public class DataXYZ {
         return z;
     }
 
-    public String getTime() {
-        return time;
-    }
 }

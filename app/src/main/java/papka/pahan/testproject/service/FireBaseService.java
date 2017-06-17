@@ -15,7 +15,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.Date;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import papka.pahan.testproject.data.DataXYZ;
 
@@ -35,8 +37,13 @@ public class FireBaseService extends Service {
     private float zy_angle;
 
 
+    DateFormat df = new SimpleDateFormat("EEE, d MMM yyyy, HH:mm");
+    String date = df.format(Calendar.getInstance().getTime());
+
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference ref = database.getReference();
+    DatabaseReference ref = database.getReference(date);
+    DatabaseReference reference;
+
 
     SensorEventListener mListener = new SensorEventListener() {
         @Override
@@ -49,16 +56,16 @@ public class FireBaseService extends Service {
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
                 String time = sdf.format(new Date(System.currentTimeMillis()));
 
-
+                String timeSec = String.valueOf(actualTime);
                 String x = String.valueOf(xy_angle);
                 String y = String.valueOf(xz_angle);
                 String z = String.valueOf(zy_angle);
 
                 String id = ref.push().getKey();
-                DatabaseReference reference = ref.child(time);
+                 reference = ref.child(timeSec);
 
 
-                reference.setValue(new DataXYZ(x, y, z, time));
+                reference.setValue(new DataXYZ(x, y, z));
 
         }
 
@@ -71,12 +78,14 @@ public class FireBaseService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(LOG_TAG, "MyService onCreate");
-        ref.removeValue();
+//        ref.removeValue();
+
     }
 
     public void onDestroy() {
         Log.d(LOG_TAG, "MyService onDestroy");
         mSensorManager.unregisterListener(mListener);
+
         super.onDestroy();
     }
 
