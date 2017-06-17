@@ -14,6 +14,11 @@ import android.util.Log;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
+import papka.pahan.testproject.data.DataXYZ;
+
 /**
  * Created by admin on 16.06.2017.
  */
@@ -29,7 +34,9 @@ public class FireBaseService extends Service {
     private float xz_angle;
     private float zy_angle;
 
-    DatabaseReference mDatabaseReference;
+
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref = database.getReference();
 
     SensorEventListener mListener = new SensorEventListener() {
         @Override
@@ -37,10 +44,22 @@ public class FireBaseService extends Service {
             xy_angle = event.values[0];
             xz_angle = event.values[1];
             zy_angle = event.values[2];
+            long actualTime = System.currentTimeMillis() / 1000;
 
-            Log.d(LOG_TAG, "x = " + xy_angle);
-            Log.d(LOG_TAG, "z = " + xz_angle);
-            Log.d(LOG_TAG, "y = " + zy_angle);
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                String time = sdf.format(new Date(System.currentTimeMillis()));
+
+
+                String x = String.valueOf(xy_angle);
+                String y = String.valueOf(xz_angle);
+                String z = String.valueOf(zy_angle);
+
+                String id = ref.push().getKey();
+                DatabaseReference reference = ref.child(time);
+
+
+                reference.setValue(new DataXYZ(x, y, z, time));
+
         }
 
         @Override
@@ -52,9 +71,7 @@ public class FireBaseService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(LOG_TAG, "MyService onCreate");
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference("fdsfsd");
-        mDatabaseReference.child("xdsfsdf").setValue("fsdfsdfsdf");
-
+        ref.removeValue();
     }
 
     public void onDestroy() {
@@ -69,13 +86,14 @@ public class FireBaseService extends Service {
         return null;
     }
 
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mSensorManager.registerListener(mListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),200000);
-        Log.d(LOG_TAG, "MyService sdfsdgsdgsdgsdg");
-
+        mSensorManager.registerListener(mListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
 
         return START_STICKY;
     }
+
+
 }
