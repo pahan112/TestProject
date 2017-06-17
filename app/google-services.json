@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "100225384328-5uus82kdg4dffnuu6viid9g8mdjelroi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "papka.pahan.testproject",
+            "certificate_hash": "370c09f870f213d595668125f16f42c347826165"
+          }
+        },
+        {
           "client_id": "100225384328-1fh30c8gsq08d2epef72af0seha275cg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
