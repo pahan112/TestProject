@@ -85,10 +85,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     @OnClick(R.id.bt_start)
     void clickStart() {
         startService(new Intent(this,FireBaseService.class));
+
     }
 
     @OnClick(R.id.bt_stop)
     void clickStop() {
         stopService(new Intent(this,FireBaseService.class));
+//        MyTime myTime = new MyTime();
+//        Log.d("myLogs", "fsdfsd" + myTime.getTime());
+//        Log.d("myLogs", "fsdfsd");
     }
 }

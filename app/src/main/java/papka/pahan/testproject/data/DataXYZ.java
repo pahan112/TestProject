@@ -5,11 +5,11 @@ package papka.pahan.testproject.data;
  */
 
 public class DataXYZ {
+
     private String x;
     private String y;
     private String z;
-    private String time;
-
+    private transient String time;
 
     public DataXYZ() {
 
@@ -18,6 +18,18 @@ public class DataXYZ {
     public DataXYZ(String x, String y, String z) {
         this.x = x;
         this.y = y;
+        this.z = z;
+    }
+
+    public void setX(String x) {
+        this.x = x;
+    }
+
+    public void setY(String y) {
+        this.y = y;
+    }
+
+    public void setZ(String z) {
         this.z = z;
     }
 
@@ -33,4 +45,21 @@ public class DataXYZ {
         return z;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "DataXYZ{" +
+                "x='" + x + '\'' +
+                ", y='" + y + '\'' +
+                ", z='" + z + '\'' +
+                ", time='" + time + '\'' +
+                '}';
+    }
 }

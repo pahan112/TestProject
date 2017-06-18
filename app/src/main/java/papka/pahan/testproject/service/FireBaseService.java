@@ -14,7 +14,6 @@ import android.util.Log;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -53,19 +52,15 @@ public class FireBaseService extends Service {
             zy_angle = event.values[2];
             long actualTime = System.currentTimeMillis() / 1000;
 
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                String time = sdf.format(new Date(System.currentTimeMillis()));
 
-                String timeSec = String.valueOf(actualTime);
-                String x = String.valueOf(xy_angle);
-                String y = String.valueOf(xz_angle);
-                String z = String.valueOf(zy_angle);
+            String timeSec = String.valueOf(actualTime);
+            String x = String.valueOf(xy_angle);
+            String y = String.valueOf(xz_angle);
+            String z = String.valueOf(zy_angle);
 
-                String id = ref.push().getKey();
-                 reference = ref.child(timeSec);
+            reference = ref.child(timeSec);
 
-
-                reference.setValue(new DataXYZ(x, y, z));
+            reference.setValue(new DataXYZ(x, y, z));
 
         }
 
