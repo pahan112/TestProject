@@ -3,6 +3,8 @@ package papka.pahan.testproject.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -14,15 +16,21 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import papka.pahan.testproject.R;
+import papka.pahan.testproject.adapter.MyFragmentPagerAdapter;
 import papka.pahan.testproject.service.FireBaseService;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mFirebaseAuth;
+
+    @BindView(R.id.view_pager)
+    ViewPager mViewPager;
+
 
 
     @Override
@@ -31,8 +39,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-
-
+        TabLayout tab = (TabLayout) findViewById(R.id.tab_layout);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -43,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
+        mViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(),getResources().getStringArray(R.array.titles_tab)));
+       tab.setupWithViewPager(mViewPager);
     }
 
 

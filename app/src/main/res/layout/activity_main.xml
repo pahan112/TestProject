@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="papka.pahan.testproject.activity.MainActivity">
 
     <RelativeLayout
@@ -21,11 +22,7 @@
             android:textSize="@dimen/title_text_size" />
     </RelativeLayout>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        android:background="@drawable/image_back" />
+
 
     <LinearLayout
         android:layout_below="@+id/toolbar"
@@ -64,14 +61,24 @@
             android:text="@string/log_out" />
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
+    <android.support.design.widget.TabLayout
+        android:layout_below="@+id/ll_panel"
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/ll_panel">
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        android:layout_height="wrap_content" />
+
+  <android.support.v4.view.ViewPager
+      android:layout_width="match_parent"
+      android:layout_below="@+id/tab_layout"
+      android:layout_height="match_parent"
+      android:id="@+id/view_pager">
+
+  </android.support.v4.view.ViewPager>
 
 
-    </FrameLayout>
+
 
 
 </RelativeLayout>

@@ -6,4 +6,8 @@
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="error_connect">Ошибка соеденения</string>
+    <string-array name="titles_tab">
+        <item>Tab List</item>
+        <item>Tab Schedule</item>
+    </string-array>
 </resources>
