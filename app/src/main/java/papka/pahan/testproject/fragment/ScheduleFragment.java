@@ -72,7 +72,7 @@ public class ScheduleFragment extends Fragment {
                 graph.removeAllSeries();
                 if(!dataXYZs.isEmpty()){
                 for (int i = 0; i < dataXYZs.size(); i++) {
-                    Integer time = Integer.valueOf(dataXYZs.get(i).getTime())%10000;
+                    Integer time = Integer.valueOf(dataXYZs.get(i).getTime())%1000;
                     Double x = Double.valueOf(dataXYZs.get(i).getX());
                     Double y = Double.valueOf(dataXYZs.get(i).getY());
                     Double z = Double.valueOf(dataXYZs.get(i).getZ());
