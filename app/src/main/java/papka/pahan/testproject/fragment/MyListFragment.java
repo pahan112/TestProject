@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +54,6 @@ public class MyListFragment extends Fragment {
                     for (DataSnapshot postSnapshot : sessionSnap.getChildren()) {
                         DataXYZ dataXYZ = postSnapshot.getValue(DataXYZ.class);
                         dataXYZ.setTime(postSnapshot.getKey());
-                        Log.e(LOG_TAG, dataXYZ.toString());
                         dataXYZs.add(dataXYZ);
                     }
                 }
