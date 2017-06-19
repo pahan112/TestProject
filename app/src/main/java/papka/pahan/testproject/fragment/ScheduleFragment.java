@@ -57,15 +57,13 @@ public class ScheduleFragment extends Fragment {
         seriesY = new LineGraphSeries<>();
         seriesZ = new LineGraphSeries<>();
 
+        graph.removeAllSeries();
 
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot sessionSnap : dataSnapshot.getChildren()) {
-//                    graph.removeSeries(seriesX);
-//                    graph.removeSeries(seriesY);
-//                    graph.removeSeries(seriesZ);
                     dataXYZs.clear();
                     for (DataSnapshot postSnapshot : sessionSnap.getChildren()) {
                         DataXYZ dataXYZ = postSnapshot.getValue(DataXYZ.class);
@@ -81,9 +79,9 @@ public class ScheduleFragment extends Fragment {
                     Double y = Double.valueOf(dataXYZs.get(i).getY());
                     Double z = Double.valueOf(dataXYZs.get(i).getZ());
 
-                    seriesX.appendData(new DataPoint(time,x),true,60);
-                    seriesY.appendData(new DataPoint(time,y),true,60);
-                    seriesZ.appendData(new DataPoint(time,z),true,60);
+                    seriesX.appendData(new DataPoint(x,time),false,900000000);
+                    seriesY.appendData(new DataPoint(y,time),false,900000000);
+                    seriesZ.appendData(new DataPoint(z,time),false,900000000);
 
 //                    Log.d(LOG_TAG,time + "");
 //                    Log.d(LOG_TAG,x+ " ");
@@ -101,13 +99,14 @@ public class ScheduleFragment extends Fragment {
 //                    seriesZ = new LineGraphSeries<>(new DataPoint[] {
 //                            new DataPoint(time, z),
 //                    });
-                    seriesX.setColor(Color.YELLOW);
-                    seriesY.setColor(Color.RED);
-                    seriesZ.setColor(Color.BLACK);
-                    graph.addSeries(seriesX );
-                    graph.addSeries(seriesY );
-                    graph.addSeries(seriesZ );
                 }}
+
+                seriesX.setColor(Color.YELLOW);
+                seriesY.setColor(Color.RED);
+                seriesZ.setColor(Color.BLACK);
+                graph.addSeries(seriesX );
+                graph.addSeries(seriesY );
+                graph.addSeries(seriesZ );
 
 
 
