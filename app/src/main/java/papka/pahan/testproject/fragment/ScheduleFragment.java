@@ -13,9 +13,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.GraphViewXML;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.PointsGraphSeries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +39,11 @@ public class ScheduleFragment extends Fragment {
     private DataXYZ dataXYZ;
 
     @BindView(R.id.graph)
-    GraphView graph;
+    GraphViewXML graph;
 
-    private LineGraphSeries<DataPoint> seriesX;
-    private LineGraphSeries<DataPoint> seriesY;
-    private LineGraphSeries<DataPoint> seriesZ;
+//    private LineGraphSeries<DataPoint> seriesX;
+//    private LineGraphSeries<DataPoint> seriesY;
+//    private LineGraphSeries<DataPoint> seriesZ;
 
     @Nullable
     @Override
@@ -53,11 +53,8 @@ public class ScheduleFragment extends Fragment {
         ButterKnife.bind(this,view);
         dataXYZ = new DataXYZ();
 
-        seriesX = new LineGraphSeries<>();
-        seriesY = new LineGraphSeries<>();
-        seriesZ = new LineGraphSeries<>();
 
-        graph.removeAllSeries();
+
 
 
         mDatabase.addValueEventListener(new ValueEventListener() {
@@ -71,7 +68,7 @@ public class ScheduleFragment extends Fragment {
                         dataXYZs.add(dataXYZ);
                     }
                 }
-
+                graph.removeAllSeries();
                 if(!dataXYZs.isEmpty()){
                 for (int i = 0; i < dataXYZs.size(); i++) {
                     Integer time = Integer.valueOf(dataXYZs.get(i).getTime());
@@ -79,9 +76,21 @@ public class ScheduleFragment extends Fragment {
                     Double y = Double.valueOf(dataXYZs.get(i).getY());
                     Double z = Double.valueOf(dataXYZs.get(i).getZ());
 
-                    seriesX.appendData(new DataPoint(x,time),false,900000000);
-                    seriesY.appendData(new DataPoint(y,time),false,900000000);
-                    seriesZ.appendData(new DataPoint(z,time),false,900000000);
+                    PointsGraphSeries<DataPoint> seriesX = new PointsGraphSeries<>(new DataPoint[] {
+                            new DataPoint(time, x),
+
+                    });
+                    PointsGraphSeries<DataPoint> seriesZ = new PointsGraphSeries<>(new DataPoint[] {
+                            new DataPoint(time, z),
+
+                    });
+                    PointsGraphSeries<DataPoint> seriesY = new PointsGraphSeries<>(new DataPoint[] {
+                            new DataPoint(time, y),
+
+                    });
+//                    seriesX.appendData(new DataPoint(time,x),false,900000000);
+//                    seriesY.appendData(new DataPoint(time,y),false,900000000);
+//                    seriesZ.appendData(new DataPoint(time,z),false,900000000);
 
 //                    Log.d(LOG_TAG,time + "");
 //                    Log.d(LOG_TAG,x+ " ");
@@ -99,14 +108,20 @@ public class ScheduleFragment extends Fragment {
 //                    seriesZ = new LineGraphSeries<>(new DataPoint[] {
 //                            new DataPoint(time, z),
 //                    });
+                    graph.getViewport().setScalable(true);
+
+// activate horizontal scrolling
+                    graph.getViewport().setScrollable(true);
+
+
+                    seriesX.setColor(Color.YELLOW);
+                    seriesY.setColor(Color.RED);
+                    seriesZ.setColor(Color.BLACK);
+                    graph.addSeries(seriesX );
+                    graph.addSeries(seriesY );
+                    graph.addSeries(seriesZ );
                 }}
 
-                seriesX.setColor(Color.YELLOW);
-                seriesY.setColor(Color.RED);
-                seriesZ.setColor(Color.BLACK);
-                graph.addSeries(seriesX );
-                graph.addSeries(seriesY );
-                graph.addSeries(seriesZ );
 
 
 
