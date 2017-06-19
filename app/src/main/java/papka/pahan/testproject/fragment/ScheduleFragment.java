@@ -43,24 +43,23 @@ public class ScheduleFragment extends Fragment {
     @BindView(R.id.graph)
     GraphView graph;
 
-    private LineGraphSeries<DataPoint> seriesX;
-    private LineGraphSeries<DataPoint> seriesZ;
-    private LineGraphSeries<DataPoint> seriesY;
+    LineGraphSeries<DataPoint> seriesX;
+    LineGraphSeries<DataPoint> seriesZ;
+    LineGraphSeries<DataPoint> seriesY;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        View view = inflater.inflate(R.layout.schedule_fragment,null);
-        ButterKnife.bind(this,view);
+        View view = inflater.inflate(R.layout.schedule_fragment, null);
+        ButterKnife.bind(this, view);
         dataXYZ = new DataXYZ();
+
         Viewport viewport = graph.getViewport();
         viewport.setYAxisBoundsManual(true);
         viewport.setScrollable(true);
         viewport.setMinY(-10);
         viewport.setMaxY(10);
-
-
 
 
         mDatabase.addValueEventListener(new ValueEventListener() {
@@ -75,26 +74,26 @@ public class ScheduleFragment extends Fragment {
                     }
                 }
                 graph.removeAllSeries();
-                if(!dataXYZs.isEmpty()){
-                for (int i = 0; i < dataXYZs.size(); i++) {
-                    Integer time = Integer.valueOf(dataXYZs.get(i).getTime())%1000;
-                    Double x = Double.valueOf(dataXYZs.get(i).getX());
-                    Double y = Double.valueOf(dataXYZs.get(i).getY());
-                    Double z = Double.valueOf(dataXYZs.get(i).getZ());
+                if (!dataXYZs.isEmpty()) {
+                    for (int i = 0; i < dataXYZs.size(); i++) {
+                        Integer time = Integer.valueOf(dataXYZs.get(i).getTime()) % 1000;
+                        Double x = Double.valueOf(dataXYZs.get(i).getX());
+                        Double y = Double.valueOf(dataXYZs.get(i).getY());
+                        Double z = Double.valueOf(dataXYZs.get(i).getZ());
 
-                    Log.d(LOG_TAG,time + " ");
-                   seriesX = new LineGraphSeries<>(new DataPoint[] {
-                            new DataPoint(time, x),
+                        Log.d(LOG_TAG, time + " ");
+                        seriesX = new LineGraphSeries<>(new DataPoint[]{
+                                new DataPoint(time, x),
 
-                    });
-                    seriesZ = new LineGraphSeries<>(new DataPoint[] {
-                            new DataPoint(time, z),
+                        });
+                        seriesZ = new LineGraphSeries<>(new DataPoint[]{
+                                new DataPoint(time, z),
 
-                    });
-                     seriesY = new LineGraphSeries<>(new DataPoint[] {
-                            new DataPoint(time, y),
+                        });
+                        seriesY = new LineGraphSeries<>(new DataPoint[]{
+                                new DataPoint(time, y),
 
-                    });
+                        });
 //                    seriesX.appendData(new DataPoint(time,x),false,900000000);
 //                    seriesY.appendData(new DataPoint(time,y),false,900000000);
 //                    seriesZ.appendData(new DataPoint(time,z),false,900000000);
@@ -117,23 +116,26 @@ public class ScheduleFragment extends Fragment {
 //                    });
 
 
+                        seriesX.setColor(Color.YELLOW);
+                        seriesY.setColor(Color.RED);
+                        seriesZ.setColor(Color.BLACK);
 
-                    seriesX.setColor(Color.YELLOW);
-                    seriesY.setColor(Color.RED);
-                    seriesZ.setColor(Color.BLACK);
-                    seriesX.setDrawDataPoints(true);
-                    seriesY.setDrawDataPoints(true);
-                    seriesZ.setDrawDataPoints(true);
+                        seriesX.setDrawBackground(true);
+                        seriesY.isDrawDataPoints();
+                        seriesZ.setThickness(10);
 
-
-                    graph.addSeries(seriesX );
-                    graph.addSeries(seriesY );
-                    graph.addSeries(seriesZ );
-
-
-                }}
+                        seriesX.setDrawDataPoints(true);
+                        seriesY.setDrawDataPoints(true);
+                        seriesZ.setDrawDataPoints(true);
 
 
+                        graph.addSeries(seriesX);
+                        graph.addSeries(seriesY);
+                        graph.addSeries(seriesZ);
+
+
+                    }
+                }
 
 
             }
