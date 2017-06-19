@@ -22,6 +22,7 @@ public class ScheduleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.schedule_fragment,null);
         ButterKnife.bind(this,view);
+
         return view;
     }
 }

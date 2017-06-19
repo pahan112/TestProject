@@ -3,11 +3,12 @@ package papka.pahan.testproject.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,12 +16,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import papka.pahan.testproject.R;
+import papka.pahan.testproject.adapter.XYZTAdapter;
 import papka.pahan.testproject.data.DataXYZ;
 
 /**
@@ -30,12 +32,13 @@ import papka.pahan.testproject.data.DataXYZ;
 public class MyListFragment extends Fragment {
 
     private DatabaseReference mDatabase;
-    Set<String> sesia = new HashSet<>();
     final String LOG_TAG = "myLogs";
-    @BindView(R.id.text)
-    TextView text;
 
-    String string;
+    @BindView(R.id.rv_xyzt)
+    RecyclerView mXYZTRecyclerView;
+
+    private List<DataXYZ> dataXYZs = new ArrayList<>();
+
 
     @Nullable
     @Override
@@ -48,14 +51,18 @@ public class MyListFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot sessionSnap : dataSnapshot.getChildren()) {
+                    dataXYZs.clear();
                     for (DataSnapshot postSnapshot : sessionSnap.getChildren()) {
                         DataXYZ dataXYZ = postSnapshot.getValue(DataXYZ.class);
                         dataXYZ.setTime(postSnapshot.getKey());
                         Log.e(LOG_TAG, dataXYZ.toString());
-
+                        dataXYZs.add(dataXYZ);
                     }
                 }
-
+                XYZTAdapter xyztAdapter = new XYZTAdapter(dataXYZs);
+                mXYZTRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                mXYZTRecyclerView.setAdapter(xyztAdapter);
+                xyztAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -64,7 +71,10 @@ public class MyListFragment extends Fragment {
             }
         });
         return view;
-
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }
