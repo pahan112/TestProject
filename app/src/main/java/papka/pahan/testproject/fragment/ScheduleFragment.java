@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,9 +42,9 @@ public class ScheduleFragment extends Fragment {
     @BindView(R.id.graph)
     GraphViewXML graph;
 
-//    private LineGraphSeries<DataPoint> seriesX;
-//    private LineGraphSeries<DataPoint> seriesY;
-//    private LineGraphSeries<DataPoint> seriesZ;
+    private PointsGraphSeries<DataPoint> seriesX;
+    private PointsGraphSeries<DataPoint> seriesZ;
+    private PointsGraphSeries<DataPoint> seriesY;
 
     @Nullable
     @Override
@@ -71,20 +72,21 @@ public class ScheduleFragment extends Fragment {
                 graph.removeAllSeries();
                 if(!dataXYZs.isEmpty()){
                 for (int i = 0; i < dataXYZs.size(); i++) {
-                    Integer time = Integer.valueOf(dataXYZs.get(i).getTime());
+                    Integer time = Integer.valueOf(dataXYZs.get(i).getTime())%10000;
                     Double x = Double.valueOf(dataXYZs.get(i).getX());
                     Double y = Double.valueOf(dataXYZs.get(i).getY());
                     Double z = Double.valueOf(dataXYZs.get(i).getZ());
 
-                    PointsGraphSeries<DataPoint> seriesX = new PointsGraphSeries<>(new DataPoint[] {
+                    Log.d(LOG_TAG,time + " ");
+                   seriesX = new PointsGraphSeries<>(new DataPoint[] {
                             new DataPoint(time, x),
 
                     });
-                    PointsGraphSeries<DataPoint> seriesZ = new PointsGraphSeries<>(new DataPoint[] {
+                    seriesZ = new PointsGraphSeries<>(new DataPoint[] {
                             new DataPoint(time, z),
 
                     });
-                    PointsGraphSeries<DataPoint> seriesY = new PointsGraphSeries<>(new DataPoint[] {
+                     seriesY = new PointsGraphSeries<>(new DataPoint[] {
                             new DataPoint(time, y),
 
                     });
@@ -110,9 +112,7 @@ public class ScheduleFragment extends Fragment {
 //                    });
                     graph.getViewport().setScalable(true);
 
-// activate horizontal scrolling
                     graph.getViewport().setScrollable(true);
-
 
                     seriesX.setColor(Color.YELLOW);
                     seriesY.setColor(Color.RED);
@@ -120,6 +120,7 @@ public class ScheduleFragment extends Fragment {
                     graph.addSeries(seriesX );
                     graph.addSeries(seriesY );
                     graph.addSeries(seriesZ );
+
                 }}
 
 
