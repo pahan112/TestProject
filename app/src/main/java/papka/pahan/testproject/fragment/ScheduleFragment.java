@@ -14,7 +14,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.jjoe64.graphview.helper.GraphViewXML;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 
@@ -40,7 +41,7 @@ public class ScheduleFragment extends Fragment {
     private DataXYZ dataXYZ;
 
     @BindView(R.id.graph)
-    GraphViewXML graph;
+    GraphView graph;
 
     private PointsGraphSeries<DataPoint> seriesX;
     private PointsGraphSeries<DataPoint> seriesZ;
@@ -53,8 +54,11 @@ public class ScheduleFragment extends Fragment {
         View view = inflater.inflate(R.layout.schedule_fragment,null);
         ButterKnife.bind(this,view);
         dataXYZ = new DataXYZ();
-
-
+        Viewport viewport = graph.getViewport();
+        viewport.setYAxisBoundsManual(true);
+        viewport.setScrollable(true);
+        viewport.setMinY(-10);
+        viewport.setMaxY(10);
 
 
 
@@ -110,9 +114,8 @@ public class ScheduleFragment extends Fragment {
 //                    seriesZ = new LineGraphSeries<>(new DataPoint[] {
 //                            new DataPoint(time, z),
 //                    });
-                    graph.getViewport().setScalable(true);
 
-                    graph.getViewport().setScrollable(true);
+
 
                     seriesX.setColor(Color.YELLOW);
                     seriesY.setColor(Color.RED);
@@ -120,6 +123,7 @@ public class ScheduleFragment extends Fragment {
                     graph.addSeries(seriesX );
                     graph.addSeries(seriesY );
                     graph.addSeries(seriesZ );
+
 
                 }}
 
