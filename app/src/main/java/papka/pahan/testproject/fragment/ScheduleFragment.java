@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.PointsGraphSeries;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +43,9 @@ public class ScheduleFragment extends Fragment {
     @BindView(R.id.graph)
     GraphView graph;
 
-    private PointsGraphSeries<DataPoint> seriesX;
-    private PointsGraphSeries<DataPoint> seriesZ;
-    private PointsGraphSeries<DataPoint> seriesY;
+    private LineGraphSeries<DataPoint> seriesX;
+    private LineGraphSeries<DataPoint> seriesZ;
+    private LineGraphSeries<DataPoint> seriesY;
 
     @Nullable
     @Override
@@ -59,6 +59,7 @@ public class ScheduleFragment extends Fragment {
         viewport.setScrollable(true);
         viewport.setMinY(-10);
         viewport.setMaxY(10);
+
 
 
 
@@ -82,15 +83,15 @@ public class ScheduleFragment extends Fragment {
                     Double z = Double.valueOf(dataXYZs.get(i).getZ());
 
                     Log.d(LOG_TAG,time + " ");
-                   seriesX = new PointsGraphSeries<>(new DataPoint[] {
+                   seriesX = new LineGraphSeries<>(new DataPoint[] {
                             new DataPoint(time, x),
 
                     });
-                    seriesZ = new PointsGraphSeries<>(new DataPoint[] {
+                    seriesZ = new LineGraphSeries<>(new DataPoint[] {
                             new DataPoint(time, z),
 
                     });
-                     seriesY = new PointsGraphSeries<>(new DataPoint[] {
+                     seriesY = new LineGraphSeries<>(new DataPoint[] {
                             new DataPoint(time, y),
 
                     });
@@ -120,6 +121,11 @@ public class ScheduleFragment extends Fragment {
                     seriesX.setColor(Color.YELLOW);
                     seriesY.setColor(Color.RED);
                     seriesZ.setColor(Color.BLACK);
+                    seriesX.setDrawDataPoints(true);
+                    seriesY.setDrawDataPoints(true);
+                    seriesZ.setDrawDataPoints(true);
+
+
                     graph.addSeries(seriesX );
                     graph.addSeries(seriesY );
                     graph.addSeries(seriesZ );
