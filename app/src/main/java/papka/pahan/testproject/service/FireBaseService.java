@@ -67,7 +67,7 @@ public class FireBaseService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(LOG_TAG, "MyService onCreate");
-        mRef.removeValue();
+        mDatabase.getReference().removeValue();
     }
 
     public void onDestroy() {

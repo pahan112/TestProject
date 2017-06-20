@@ -2,10 +2,13 @@ package papka.pahan.testproject.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -30,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
+    @BindView(R.id.et_start)
+    EditText mStartEditText;
+    @BindView(R.id.bt_start)
+    Button mButtonStart;
 
 
     @Override
@@ -83,8 +90,23 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     @OnClick(R.id.bt_start)
     void clickStart() {
-        startService(new Intent(this, FireBaseService.class));
+        if (mStartEditText.getText().toString().trim().isEmpty() || mStartEditText.getText().toString().trim().length() == 0 || mStartEditText.getText().toString().trim().equals("") || mStartEditText.getText().toString().trim() == null) {
+            startService(new Intent(this, FireBaseService.class));
+        } else {
+            mButtonStart.setClickable(false);
+            int time = Integer.parseInt(mStartEditText.getText().toString()) * 1000;
+            new CountDownTimer(time, time) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                }
 
+                @Override
+                public void onFinish() {
+                    startService(new Intent(getBaseContext(), FireBaseService.class));
+                    mButtonStart.setClickable(true);
+                }
+            }.start();
+        }
     }
 
     @OnClick(R.id.bt_stop)

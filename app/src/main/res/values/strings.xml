@@ -6,6 +6,7 @@
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="error_connect">Ошибка соеденения</string>
+    <string name="start_service_after_second_don_t_close_app">Start service after second.Don\'t close app</string>
     <string-array name="titles_tab">
         <item>Tab List</item>
         <item>Tab Schedule</item>

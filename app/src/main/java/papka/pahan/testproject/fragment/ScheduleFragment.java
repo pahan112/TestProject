@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +33,6 @@ import papka.pahan.testproject.data.DataXYZ;
 public class ScheduleFragment extends Fragment {
 
     private DatabaseReference mDatabase;
-
-    final String LOG_TAG = "myLogs";
 
     private List<DataXYZ> dataXYZs = new ArrayList<>();
     private DataXYZ dataXYZ;
@@ -76,7 +73,6 @@ public class ScheduleFragment extends Fragment {
                         Double y = Double.valueOf(dataXYZs.get(i).getY());
                         Double z = Double.valueOf(dataXYZs.get(i).getZ());
 
-                        Log.d(LOG_TAG, time + " ");
                         LineGraphSeries<DataPoint> seriesX = new LineGraphSeries<>(new DataPoint[]{
                                 new DataPoint(time, x),
 

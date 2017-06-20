@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="papka.pahan.testproject.activity.MainActivity">
 
     <RelativeLayout
@@ -24,18 +24,18 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_below="@+id/toolbar"
         android:id="@+id/ll_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/bt_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="@dimen/button_margin"
+            android:layout_weight="1"
             android:background="@drawable/button_effect"
             android:text="@string/start" />
 
@@ -43,9 +43,9 @@
             android:id="@+id/bt_stop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="@dimen/button_margin"
             android:layout_marginEnd="@dimen/button_margin"
+            android:layout_marginTop="@dimen/button_margin"
+            android:layout_weight="1"
             android:background="@drawable/button_effect"
             android:text="@string/stop" />
 
@@ -53,26 +53,49 @@
             android:id="@+id/bt_log_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="@dimen/button_margin"
             android:layout_marginEnd="@dimen/button_margin"
+            android:layout_marginTop="@dimen/button_margin"
+            android:layout_weight="1"
             android:background="@drawable/button_effect"
             android:text="@string/log_out" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_below="@id/ll_panel"
+        android:id="@+id/ll_start"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/main_padding"
+        android:paddingStart="@dimen/main_padding">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start_service_after_second_don_t_close_app"
+            android:textColor="@android:color/black" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:id="@+id/et_start"
+            android:hint="0"
+            android:inputType="numberSigned" />
+
+
+    </LinearLayout>
+
     <android.support.design.widget.TabLayout
-        android:layout_below="@+id/ll_panel"
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_start"
         app:tabGravity="fill"
-        app:tabMode="fixed"
-        android:layout_height="wrap_content" />
+        app:tabMode="fixed" />
 
-  <android.support.v4.view.ViewPager
-      android:layout_width="match_parent"
-      android:layout_below="@+id/tab_layout"
-      android:layout_height="match_parent"
-      android:id="@+id/view_pager">
-  </android.support.v4.view.ViewPager>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tab_layout"/>
 
 </RelativeLayout>
