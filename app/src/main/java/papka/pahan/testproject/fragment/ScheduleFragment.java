@@ -40,6 +40,10 @@ public class ScheduleFragment extends Fragment {
     @BindView(R.id.graph)
     GraphView graph;
 
+    private LineGraphSeries<DataPoint> seriesX = new LineGraphSeries<>();
+    private LineGraphSeries<DataPoint> seriesY = new LineGraphSeries<>();
+    private LineGraphSeries<DataPoint> seriesZ = new LineGraphSeries<>();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,6 +61,9 @@ public class ScheduleFragment extends Fragment {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                seriesX.resetData(new DataPoint[] {});
+                seriesY.resetData(new DataPoint[] {});
+                seriesZ.resetData(new DataPoint[] {});
                 for (DataSnapshot sessionSnap : dataSnapshot.getChildren()) {
                     dataXYZs.clear();
                     for (DataSnapshot postSnapshot : sessionSnap.getChildren()) {
@@ -65,43 +72,25 @@ public class ScheduleFragment extends Fragment {
                         dataXYZs.add(dataXYZ);
                     }
                 }
-                graph.removeAllSeries();
                 if (!dataXYZs.isEmpty()) {
                     for (int i = 0; i < dataXYZs.size(); i++) {
-                        Integer time = Integer.valueOf(dataXYZs.get(i).getTime()) % 1000;
+                        Double time = Double.valueOf(dataXYZs.get(i).getTime()) % 1000;
                         Double x = Double.valueOf(dataXYZs.get(i).getX());
                         Double y = Double.valueOf(dataXYZs.get(i).getY());
                         Double z = Double.valueOf(dataXYZs.get(i).getZ());
 
-                        LineGraphSeries<DataPoint> seriesX = new LineGraphSeries<>(new DataPoint[]{
-                                new DataPoint(time, x),
-
-                        });
-                        LineGraphSeries<DataPoint> seriesZ = new LineGraphSeries<>(new DataPoint[]{
-                                new DataPoint(time, z) ,
-
-                        });
-                        LineGraphSeries<DataPoint> seriesY = new LineGraphSeries<>(new DataPoint[]{
-                                new DataPoint(time, y),
-
-                        });
-
-                        seriesX.setColor(Color.YELLOW);
-                        seriesY.setColor(Color.RED);
-                        seriesZ.setColor(Color.BLACK);
-
-                        seriesX.setDrawBackground(true);
-                        seriesZ.setThickness(10);
-
-                        seriesX.setDrawDataPoints(true);
-                        seriesY.setDrawDataPoints(true);
-                        seriesZ.setDrawDataPoints(true);
-
-                        graph.addSeries(seriesX);
-                        graph.addSeries(seriesY);
-                        graph.addSeries(seriesZ);
+                        seriesX.appendData(new DataPoint(time, x),true,10);
+                        seriesY.appendData(new DataPoint(time, y),true,10);
+                        seriesZ.appendData(new DataPoint(time, z),true,10);
                     }
                 }
+                seriesX.setColor(Color.YELLOW);
+                seriesY.setColor(Color.RED);
+                seriesZ.setColor(Color.BLACK);
+
+                graph.addSeries(seriesX);
+                graph.addSeries(seriesY);
+                graph.addSeries(seriesZ);
             }
 
             @Override
