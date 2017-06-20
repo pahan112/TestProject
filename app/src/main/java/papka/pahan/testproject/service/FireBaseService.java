@@ -42,6 +42,7 @@ public class FireBaseService extends Service {
     DatabaseReference mRef = mDatabase.getReference(mDate);
     private DatabaseReference mReference;
 
+
     SensorEventListener mListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
