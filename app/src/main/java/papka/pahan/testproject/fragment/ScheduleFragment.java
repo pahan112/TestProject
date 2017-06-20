@@ -14,7 +14,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -50,12 +49,6 @@ public class ScheduleFragment extends Fragment {
         ButterKnife.bind(this, view);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        Viewport viewport = graph.getViewport();
-        viewport.setYAxisBoundsManual(true);
-        viewport.setScrollable(true);
-        viewport.setMinY(-10);
-        viewport.setMaxY(10);
-
         graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
 
         mDatabase.addChildEventListener(new ChildEventListener() {
@@ -82,7 +75,8 @@ public class ScheduleFragment extends Fragment {
                         seriesY.appendData(new DataPoint(time, y), true, 10);
                         seriesZ.appendData(new DataPoint(time, z), true, 10);
 
-
+                        graph.getViewport().setMaxX(time);
+                        graph.getViewport().setMinX(Integer.valueOf(mDataXYZs.get(0).getTime()));
 
                         seriesX.setColor(Color.YELLOW);
                         seriesY.setColor(Color.RED);

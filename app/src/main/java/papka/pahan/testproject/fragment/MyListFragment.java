@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +37,8 @@ public class MyListFragment extends Fragment {
 
     private List<DataXYZ> mDataXYZs = new ArrayList<>();
 
+    private XYZTAdapter xyztAdapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,11 +46,14 @@ public class MyListFragment extends Fragment {
         ButterKnife.bind(this, view);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        xyztAdapter = new XYZTAdapter(mDataXYZs);
+        mXYZTRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mXYZTRecyclerView.setAdapter(xyztAdapter);
+
         mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 /**Нужен шоб достати назву сесії при старті*/
-                Log.e("myLogs", dataSnapshot.getKey());
                 mDataXYZs.clear();
                 mDatabase.child(dataSnapshot.getKey()).addChildEventListener(new ChildEventListener() {
                     @Override
@@ -57,10 +61,6 @@ public class MyListFragment extends Fragment {
                         DataXYZ dataXYZ = dataSnapshot.getValue(DataXYZ.class);
                         dataXYZ.setTime(dataSnapshot.getKey());
                         mDataXYZs.add(dataXYZ);
-                        Log.d("myLogs", mDataXYZs.toString());
-                        XYZTAdapter xyztAdapter = new XYZTAdapter(mDataXYZs);
-                        mXYZTRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        mXYZTRecyclerView.setAdapter(xyztAdapter);
                         xyztAdapter.notifyDataSetChanged();
                     }
 
