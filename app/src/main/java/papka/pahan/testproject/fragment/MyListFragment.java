@@ -42,7 +42,7 @@ public class MyListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.list_fragment, null);
+        View view = inflater.inflate(R.layout.fragment_list, null);
         ButterKnife.bind(this, view);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -53,7 +53,7 @@ public class MyListFragment extends Fragment {
         mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                /**Нужен шоб достати назву сесії при старті*/
+                /**Первый листенер нужен что бы достать название сессии при старте*/
                 mDataXYZs.clear();
                 mDatabase.child(dataSnapshot.getKey()).addChildEventListener(new ChildEventListener() {
                     @Override

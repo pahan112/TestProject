@@ -30,11 +30,6 @@ public class FireBaseService extends Service {
 
     private SensorManager mSensorManager;
 
-    private float xy_angle;
-    private float xz_angle;
-    private float zy_angle;
-
-
     DateFormat mDf = new SimpleDateFormat("EEE, d MMM yyyy, HH:mm");
     String mDate = mDf.format(Calendar.getInstance().getTime());
 
@@ -42,13 +37,12 @@ public class FireBaseService extends Service {
     DatabaseReference mRef = mDatabase.getReference(mDate);
     private DatabaseReference mReference;
 
-
     SensorEventListener mListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
-            xy_angle = event.values[0];
-            xz_angle = event.values[1];
-            zy_angle = event.values[2];
+            float xy_angle = event.values[0];
+            float xz_angle = event.values[1];
+            float zy_angle = event.values[2];
             long actualTime = System.currentTimeMillis() / 1000;
 
             String timeSec = String.valueOf(actualTime);

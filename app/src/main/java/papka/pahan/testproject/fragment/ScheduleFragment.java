@@ -45,8 +45,9 @@ public class ScheduleFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.schedule_fragment, null);
+        View view = inflater.inflate(R.layout.fragment_schedule, null);
         ButterKnife.bind(this, view);
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
@@ -129,7 +130,6 @@ public class ScheduleFragment extends Fragment {
 
             }
         });
-
         return view;
     }
 }

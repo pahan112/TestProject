@@ -28,7 +28,7 @@ public class XYZTAdapter extends RecyclerView.Adapter<XYZTAdapter.XYZTViewHolder
 
     @Override
     public XYZTViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new XYZTViewHolder((LayoutInflater.from(parent.getContext()).inflate(R.layout.xzyt_list, parent, false)));
+        return new XYZTViewHolder((LayoutInflater.from(parent.getContext()).inflate(R.layout.list_xzyt, parent, false)));
     }
 
     @Override

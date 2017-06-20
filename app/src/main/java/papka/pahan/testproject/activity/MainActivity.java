@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     @BindView(R.id.bt_start)
     Button mButtonStart;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         mViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), getResources().getStringArray(R.array.titles_tab)));
         tab.setupWithViewPager(mViewPager);
     }
-
 
     private void goLoginScreen() {
         Intent intent = new Intent(this, LoginActivity.class);
