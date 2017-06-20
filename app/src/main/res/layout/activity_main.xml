@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="papka.pahan.testproject.activity.MainActivity">
 
@@ -21,8 +22,6 @@
             android:textColor="@android:color/black"
             android:textSize="@dimen/title_text_size" />
     </RelativeLayout>
-
-
 
     <LinearLayout
         android:layout_below="@+id/toolbar"
@@ -74,11 +73,6 @@
       android:layout_below="@+id/tab_layout"
       android:layout_height="match_parent"
       android:id="@+id/view_pager">
-
   </android.support.v4.view.ViewPager>
-
-
-
-
 
 </RelativeLayout>

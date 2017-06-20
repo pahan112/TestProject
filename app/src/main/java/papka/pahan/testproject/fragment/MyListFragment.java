@@ -31,13 +31,11 @@ import papka.pahan.testproject.data.DataXYZ;
 public class MyListFragment extends Fragment {
 
     private DatabaseReference mDatabase;
-    final String LOG_TAG = "myLogs";
 
     @BindView(R.id.rv_xyzt)
     RecyclerView mXYZTRecyclerView;
 
-    private List<DataXYZ> dataXYZs = new ArrayList<>();
-
+    private List<DataXYZ> mDataXYZs = new ArrayList<>();
 
     @Nullable
     @Override
@@ -50,14 +48,14 @@ public class MyListFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot sessionSnap : dataSnapshot.getChildren()) {
-                    dataXYZs.clear();
+                    mDataXYZs.clear();
                     for (DataSnapshot postSnapshot : sessionSnap.getChildren()) {
                         DataXYZ dataXYZ = postSnapshot.getValue(DataXYZ.class);
                         dataXYZ.setTime(postSnapshot.getKey());
-                        dataXYZs.add(dataXYZ);
+                        mDataXYZs.add(dataXYZ);
                     }
                 }
-                XYZTAdapter xyztAdapter = new XYZTAdapter(dataXYZs);
+                XYZTAdapter xyztAdapter = new XYZTAdapter(mDataXYZs);
                 mXYZTRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 mXYZTRecyclerView.setAdapter(xyztAdapter);
                 xyztAdapter.notifyDataSetChanged();

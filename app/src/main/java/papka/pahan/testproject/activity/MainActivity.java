@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     ViewPager mViewPager;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +49,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
-        mViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(),getResources().getStringArray(R.array.titles_tab)));
-       tab.setupWithViewPager(mViewPager);
+        mViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), getResources().getStringArray(R.array.titles_tab)));
+        tab.setupWithViewPager(mViewPager);
     }
 
 
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     @OnClick(R.id.bt_log_out)
     void clickLogOut() {
-        stopService(new Intent(this,FireBaseService.class));
+        stopService(new Intent(this, FireBaseService.class));
         mFirebaseAuth.signOut();
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
             @Override
@@ -84,15 +83,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     @OnClick(R.id.bt_start)
     void clickStart() {
-        startService(new Intent(this,FireBaseService.class));
+        startService(new Intent(this, FireBaseService.class));
 
     }
 
     @OnClick(R.id.bt_stop)
     void clickStop() {
-        stopService(new Intent(this,FireBaseService.class));
-//        MyTime myTime = new MyTime();
-//        Log.d("myLogs", "fsdfsd" + myTime.getTime());
-//        Log.d("myLogs", "fsdfsd");
+        stopService(new Intent(this, FireBaseService.class));
     }
 }

@@ -15,6 +15,7 @@
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
             tools:text="Time" />
 
         <TextView
@@ -22,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:textColor="@android:color/black"
             tools:text="x" />
 
         <TextView
@@ -29,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_time"
+            android:textColor="@android:color/black"
             tools:text="y" />
 
         <TextView
@@ -37,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/tv_x"
+            android:textColor="@android:color/black"
             tools:text="z" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

@@ -6,22 +6,23 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import papka.pahan.testproject.fragment.MyListFragment;
 import papka.pahan.testproject.fragment.ScheduleFragment;
+
 /**
  * Created by admin on 18.06.2017.
  */
 
-public class MyFragmentPagerAdapter extends FragmentPagerAdapter{
+public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
     private String[] mTableTitles;
 
-    public MyFragmentPagerAdapter(FragmentManager fm,String[] mTableTitles) {
+    public MyFragmentPagerAdapter(FragmentManager fm, String[] mTableTitles) {
         super(fm);
         this.mTableTitles = mTableTitles;
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){
+        switch (position) {
             case 0:
                 return new MyListFragment();
             case 1:

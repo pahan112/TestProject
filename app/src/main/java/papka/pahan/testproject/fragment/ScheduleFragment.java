@@ -43,10 +43,6 @@ public class ScheduleFragment extends Fragment {
     @BindView(R.id.graph)
     GraphView graph;
 
-    LineGraphSeries<DataPoint> seriesX;
-    LineGraphSeries<DataPoint> seriesZ;
-    LineGraphSeries<DataPoint> seriesY;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,7 +56,6 @@ public class ScheduleFragment extends Fragment {
         viewport.setScrollable(true);
         viewport.setMinY(-10);
         viewport.setMaxY(10);
-
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,62 +77,35 @@ public class ScheduleFragment extends Fragment {
                         Double z = Double.valueOf(dataXYZs.get(i).getZ());
 
                         Log.d(LOG_TAG, time + " ");
-                        seriesX = new LineGraphSeries<>(new DataPoint[]{
+                        LineGraphSeries<DataPoint> seriesX = new LineGraphSeries<>(new DataPoint[]{
                                 new DataPoint(time, x),
 
                         });
-                        seriesZ = new LineGraphSeries<>(new DataPoint[]{
+                        LineGraphSeries<DataPoint> seriesZ = new LineGraphSeries<>(new DataPoint[]{
                                 new DataPoint(time, z),
 
                         });
-                        seriesY = new LineGraphSeries<>(new DataPoint[]{
+                        LineGraphSeries<DataPoint> seriesY = new LineGraphSeries<>(new DataPoint[]{
                                 new DataPoint(time, y),
 
                         });
-//                    seriesX.appendData(new DataPoint(time,x),false,900000000);
-//                    seriesY.appendData(new DataPoint(time,y),false,900000000);
-//                    seriesZ.appendData(new DataPoint(time,z),false,900000000);
-
-//                    Log.d(LOG_TAG,time + "");
-//                    Log.d(LOG_TAG,x+ " ");
-//                    Log.d(LOG_TAG,dataXYZs.get(i).getZ());
-//
-//                   seriesX = new LineGraphSeries<>(new DataPoint[] {
-//                            new DataPoint(time, x),
-//                    });
-//                    seriesX.setColor(Color.RED);
-//
-//                    seriesY = new LineGraphSeries<>(new DataPoint[] {
-//                            new DataPoint(time, y),
-//                    });
-//                    seriesX.setColor(Color.GREEN);
-//                    seriesZ = new LineGraphSeries<>(new DataPoint[] {
-//                            new DataPoint(time, z),
-//                    });
-
 
                         seriesX.setColor(Color.YELLOW);
                         seriesY.setColor(Color.RED);
                         seriesZ.setColor(Color.BLACK);
 
                         seriesX.setDrawBackground(true);
-                        seriesY.isDrawDataPoints();
                         seriesZ.setThickness(10);
 
                         seriesX.setDrawDataPoints(true);
                         seriesY.setDrawDataPoints(true);
                         seriesZ.setDrawDataPoints(true);
 
-
                         graph.addSeries(seriesX);
                         graph.addSeries(seriesY);
                         graph.addSeries(seriesZ);
-
-
                     }
                 }
-
-
             }
 
             @Override
@@ -145,8 +113,6 @@ public class ScheduleFragment extends Fragment {
 
             }
         });
-
-
         return view;
     }
 }

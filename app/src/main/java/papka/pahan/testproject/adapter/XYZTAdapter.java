@@ -53,14 +53,14 @@ public class XYZTAdapter extends RecyclerView.Adapter<XYZTAdapter.XYZTViewHolder
 
         public XYZTViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
-        public void bind(DataXYZ dataXYZ){
-            timeTextView.setText("Time: " + dataXYZ.getTime());
-            xTextView.setText("X: " +dataXYZ.getX());
-            yTextView.setText("Y: " +dataXYZ.getY());
-            zTextView.setText("Z: " +dataXYZ.getZ());
 
+        public void bind(DataXYZ dataXYZ) {
+            timeTextView.setText("Time: " + dataXYZ.getTime());
+            xTextView.setText("X: " + dataXYZ.getX());
+            yTextView.setText("Y: " + dataXYZ.getY());
+            zTextView.setText("Z: " + dataXYZ.getZ());
         }
     }
 }

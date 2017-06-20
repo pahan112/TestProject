@@ -12,7 +12,6 @@ public class DataXYZ {
     private transient String time;
 
     public DataXYZ() {
-
     }
 
     public DataXYZ(String x, String y, String z) {

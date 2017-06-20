@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue"
     tools:context="papka.pahan.testproject.activity.LoginActivity">
 
     <RelativeLayout
@@ -20,12 +21,6 @@
             android:textColor="@android:color/black"
             android:textSize="@dimen/title_text_size" />
     </RelativeLayout>
-
-    <!--<ImageView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_below="@id/toolbar"-->
-        <!--android:background="@drawable/image_back" />-->
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/bt_log_in"
