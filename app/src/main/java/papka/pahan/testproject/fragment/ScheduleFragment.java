@@ -8,11 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
@@ -34,8 +34,7 @@ public class ScheduleFragment extends Fragment {
 
     private DatabaseReference mDatabase;
 
-    private List<DataXYZ> dataXYZs = new ArrayList<>();
-    private DataXYZ dataXYZ;
+    private List<DataXYZ> mDataXYZs = new ArrayList<>();
 
     @BindView(R.id.graph)
     GraphView graph;
@@ -47,10 +46,9 @@ public class ScheduleFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
         View view = inflater.inflate(R.layout.schedule_fragment, null);
         ButterKnife.bind(this, view);
-        dataXYZ = new DataXYZ();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         Viewport viewport = graph.getViewport();
         viewport.setYAxisBoundsManual(true);
@@ -58,39 +56,78 @@ public class ScheduleFragment extends Fragment {
         viewport.setMinY(-10);
         viewport.setMaxY(10);
 
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+
+        mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                seriesX.resetData(new DataPoint[] {});
-                seriesY.resetData(new DataPoint[] {});
-                seriesZ.resetData(new DataPoint[] {});
-                for (DataSnapshot sessionSnap : dataSnapshot.getChildren()) {
-                    dataXYZs.clear();
-                    for (DataSnapshot postSnapshot : sessionSnap.getChildren()) {
-                        DataXYZ dataXYZ = postSnapshot.getValue(DataXYZ.class);
-                        dataXYZ.setTime(postSnapshot.getKey());
-                        dataXYZs.add(dataXYZ);
-                    }
-                }
-                if (!dataXYZs.isEmpty()) {
-                    for (int i = 0; i < dataXYZs.size(); i++) {
-                        Double time = Double.valueOf(dataXYZs.get(i).getTime()) % 1000;
-                        Double x = Double.valueOf(dataXYZs.get(i).getX());
-                        Double y = Double.valueOf(dataXYZs.get(i).getY());
-                        Double z = Double.valueOf(dataXYZs.get(i).getZ());
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                seriesX.resetData(new DataPoint[]{});
+                seriesY.resetData(new DataPoint[]{});
+                seriesZ.resetData(new DataPoint[]{});
 
-                        seriesX.appendData(new DataPoint(time, x),true,10);
-                        seriesY.appendData(new DataPoint(time, y),true,10);
-                        seriesZ.appendData(new DataPoint(time, z),true,10);
-                    }
-                }
-                seriesX.setColor(Color.YELLOW);
-                seriesY.setColor(Color.RED);
-                seriesZ.setColor(Color.BLACK);
+                mDataXYZs.clear();
+                mDatabase.child(dataSnapshot.getKey()).addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        DataXYZ dataXYZ = dataSnapshot.getValue(DataXYZ.class);
+                        dataXYZ.setTime(dataSnapshot.getKey());
+                        mDataXYZs.add(dataXYZ);
 
-                graph.addSeries(seriesX);
-                graph.addSeries(seriesY);
-                graph.addSeries(seriesZ);
+                        int time = Integer.valueOf(dataXYZ.getTime());
+                        Double x = Double.valueOf(dataXYZ.getX());
+                        Double y = Double.valueOf(dataXYZ.getY());
+                        Double z = Double.valueOf(dataXYZ.getZ());
+
+                        seriesX.appendData(new DataPoint(time, x), true, 10);
+                        seriesY.appendData(new DataPoint(time, y), true, 10);
+                        seriesZ.appendData(new DataPoint(time, z), true, 10);
+
+
+
+                        seriesX.setColor(Color.YELLOW);
+                        seriesY.setColor(Color.RED);
+                        seriesZ.setColor(Color.BLACK);
+
+                        graph.addSeries(seriesX);
+                        graph.addSeries(seriesY);
+                        graph.addSeries(seriesZ);
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
@@ -98,6 +135,7 @@ public class ScheduleFragment extends Fragment {
 
             }
         });
+
         return view;
     }
 }
