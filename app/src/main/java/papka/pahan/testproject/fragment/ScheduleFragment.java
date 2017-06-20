@@ -78,7 +78,7 @@ public class ScheduleFragment extends Fragment {
 
                         });
                         LineGraphSeries<DataPoint> seriesZ = new LineGraphSeries<>(new DataPoint[]{
-                                new DataPoint(time, z),
+                                new DataPoint(time, z) ,
 
                         });
                         LineGraphSeries<DataPoint> seriesY = new LineGraphSeries<>(new DataPoint[]{
