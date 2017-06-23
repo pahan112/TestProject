@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import papka.pahan.testproject.data.DataXYZ;
 
@@ -30,7 +31,7 @@ public class FireBaseService extends Service {
 
     private SensorManager mSensorManager;
 
-    DateFormat mDf = new SimpleDateFormat("EEE, d MMM yyyy, HH:mm");
+    DateFormat mDf = new SimpleDateFormat("EEE, d MMM yyyy, HH:mm", Locale.ENGLISH);
     String mDate = mDf.format(Calendar.getInstance().getTime());
 
     final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
